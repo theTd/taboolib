@@ -77,6 +77,17 @@ public class PrimitiveIO {
     /**
      * 控制台输出
      */
+    public static void warn(Object message, Object... args) {
+        if (useJavaLogger) {
+            Logger.getLogger(runningFileName).warning(String.format(Objects.toString(message), args));
+        } else {
+            System.out.printf(message + "%n", args);
+        }
+    }
+
+    /**
+     * 控制台输出
+     */
     public static void error(Object message, Object... args) {
         if (useJavaLogger) {
             Logger.getLogger(runningFileName).severe(String.format(Objects.toString(message), args));

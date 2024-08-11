@@ -28,11 +28,13 @@ val isDevelopmentMode by lazy(LazyThreadSafetyMode.NONE) { PrimitiveSettings.IS_
 /**
  * 当前插件的所有类（在本体中）
  */
+@Deprecated("use taboolibReflections to locate classes efficiently.", ReplaceWith("taboolibReflections"))
 val runningClassMapInJar by lazy(LazyThreadSafetyMode.NONE) { TabooLib::class.java.protectionDomain.codeSource.location.getClasses() }
 
 /**
  * 当前插件的所有类
  */
+@Deprecated("use taboolibReflections to locate classes efficiently.", ReplaceWith("taboolibReflections"))
 val runningClassMap: Map<String, Class<*>>
     get() {
         val map = LinkedHashMap<String, Class<*>>()
@@ -44,30 +46,35 @@ val runningClassMap: Map<String, Class<*>>
 /**
  * 当前插件的所有类（排除第三方库）
  */
+@Deprecated("use taboolibReflections to locate classes efficiently.", ReplaceWith("taboolibReflections"))
 val runningClassMapWithoutLibrary: Map<String, Class<*>>
     get() = runningClassMap.filterKeys { !it.contains(".library.") && !it.contains(".libs.") && it.startsWith(groupId) }
 
 /**
  * 当前插件的所有类的集合
  */
+@Deprecated("use taboolibReflections to locate classes efficiently.", ReplaceWith("taboolibReflections"))
 val runningClasses: List<Class<*>>
     get() = LinkedList(runningClassMap.values)
 
 /**
  * 当前插件的所有类的集合（排除 TabooLib 第三方库）
  */
+@Deprecated("use taboolibReflections to locate classes efficiently.", ReplaceWith("taboolibReflections"))
 val runningClassesWithoutLibrary: List<Class<*>>
     get() = LinkedList(runningClassMapWithoutLibrary.values)
 
 /**
  * 当前插件的所有类（排除匿名类、内部类）
  */
+@Deprecated("use taboolibReflections to locate classes efficiently.", ReplaceWith("taboolibReflections"))
 val runningExactClassMap: Map<String, Class<*>>
     get() = runningClassMap.filter { !it.key.contains('$') && it.key.substringAfterLast('$').toIntOrNull() == null }
 
 /**
  * 当前插件的所有类的集合（排除匿名类、内部类）
  */
+@Deprecated("use taboolibReflections to locate classes efficiently.", ReplaceWith("taboolibReflections"))
 val runningExactClasses: List<Class<*>>
     get() = LinkedList(runningExactClassMap.values)
 

@@ -9,6 +9,7 @@ import org.bukkit.event.player.PlayerQuitEvent
 import org.tabooproject.reflex.Reflex.Companion.getProperty
 import taboolib.common.Inject
 import taboolib.common.io.runningClassMapWithoutLibrary
+import taboolib.common.io.runningClassesNames
 import taboolib.common.platform.Platform
 import taboolib.common.platform.PlatformSide
 import taboolib.common.platform.event.SubscribeEvent
@@ -120,7 +121,7 @@ fun <T> nmsProxyClass(clazz: Class<T>, bind: String = "{name}Impl"): Class<T> {
     val bindClass = bind.replace("{name}", clazz.name)
     val newClass = AsmClassTransfer(bindClass).createNewClass()
     // 同时生成所有的内部类
-    runningClassMapWithoutLibrary.filter { (name, _) -> name.startsWith("$bindClass\$") }.forEach { (name, _) -> AsmClassTransfer(name).createNewClass() }
+    runningClassesNames.filter { name -> name.startsWith("$bindClass\$") }.forEach { name -> AsmClassTransfer(name).createNewClass() }
     // 缓存代理类
     nmsProxyClassMap[key] = newClass
     return newClass as Class<T>

@@ -10,6 +10,7 @@ import taboolib.common.LifeCycle;
 import taboolib.common.TabooLib;
 import taboolib.common.io.ProjectIdKt;
 import taboolib.common.io.ProjectScannerKt;
+import taboolib.common.io.ReflectionsKt;
 import taboolib.common.platform.Ghost;
 import taboolib.common.platform.Platform;
 import taboolib.common.platform.PlatformSide;
@@ -165,7 +166,8 @@ public class VisitorHandler {
     public static Set<Class<?>> getClasses() {
         if (classes.isEmpty()) {
             // 获取所有类
-            for (Map.Entry<String, Class<?>> it : ProjectScannerKt.getRunningClassMap().entrySet()) {
+            for (Class<?> clazz : ReflectionsKt.getVisitorHandlerAwareClasses()) {
+                Map.Entry<String, Class<?>> it = new AbstractMap.SimpleEntry<>(clazz.getName(), clazz);
                 // 只扫自己
                 if (it.getKey().startsWith(ProjectIdKt.getGroupId())) {
                     // 排除第三方库
